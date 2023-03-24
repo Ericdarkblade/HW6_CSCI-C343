@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Stack;
 
 public class Trie {
     TrieNode root;
@@ -115,8 +118,27 @@ public class Trie {
     //       Hint: Look at your MazeSolver with a stack for inspiration for the traversal.
     //       EX: If you have prefix "ca", then it should look at all combinations of the words starting with "ca".
     public ArrayList<Entry> generateWordsFromPrefix(String prefix) {
-        ArrayList<Entry> ls = new ArrayList<>();
-        return ls;
+        ArrayList<Entry> autoWords = new ArrayList<>();
+        TrieNode currentNode = this.root;
+        char[] prefixChars = prefix.toCharArray();
+        for (char currentCharacter : prefixChars) {
+            currentNode = currentNode.children.get(currentCharacter);
+            if (currentNode == null){
+                return autoWords; //Prefix does not exist
+            }
+        }
+        generateWordsFromNode(currentNode, prefix, autoWords);
+        return autoWords;
+    }
+
+    private void generateWordsFromNode(TrieNode node, String prefix, ArrayList<Entry> autoWords){
+        if (node.isWord){
+            autoWords.add(new Entry(node.frequency, prefix));
+        }
+        for (char postCharacters : node.children.keySet()){
+            TrieNode childNode = node.children.get(postCharacters);
+            generateWordsFromNode(childNode, prefix + postCharacters, autoWords);
+        }
     }
 
 }
