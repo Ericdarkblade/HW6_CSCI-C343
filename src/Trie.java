@@ -30,7 +30,7 @@ public class Trie {
         insertHelper(root, word);
     }
 
-    void insertHelper(TrieNode node, String word) {
+    private void insertHelper(TrieNode node, String word) {
         if (!word.equals("")) { //Word is not empty
             char nextChar = word.charAt(0); //next character
             String nextWord = word.substring(1); //Should reduce word till empty
@@ -57,7 +57,7 @@ public class Trie {
         return searchHelper(root, word);
     }
 
-    boolean searchHelper(TrieNode node, String word) {
+    private boolean searchHelper(TrieNode node, String word) {
         if (!word.equals("")) {
             char nextChar = word.charAt(0); //next character
             String nextWord = word.substring(1); //Should reduce word till empty
@@ -99,7 +99,7 @@ public class Trie {
         }
     }
 
-    void leafDelete(TrieNode currentNode, char[] wordChars, ArrayList<TrieNode> nodePath) {
+    private void leafDelete(TrieNode currentNode, char[] wordChars, ArrayList<TrieNode> nodePath) {
         for (int i = wordChars.length - 1; i > 0; i--) {
             char currentCharacter = wordChars[i];
             TrieNode parent = nodePath.get(i - 1);
