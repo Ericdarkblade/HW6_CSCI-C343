@@ -39,6 +39,7 @@ public class Trie {
                 node.children.put(nextChar, nextChild);
             } else {
                 nextChild = node.children.get(nextChar); //Set nextChild to next character
+                nextChild.frequency++; //TODO CHECK THIS LINE FOR FREQUENCY ERRORS
             }
 
             insertHelper(nextChild, nextWord); //Go Next
