@@ -4,5 +4,15 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AutoCompleteTest {
-    // TODO: accuracy tests
+    @Test
+    void buildTrie() {
+    }
+
+    @Test
+    void autoComplete() {
+    }
+
+    @Test
+    void bubbleSort() {
+    }
 }

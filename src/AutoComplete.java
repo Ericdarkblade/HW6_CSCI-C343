@@ -1,6 +1,7 @@
 import java.io.IOException;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class AutoComplete {
                 for (String word : words) {
                     // TODO: add here lol
                     trie.insert(word);
+                    wordCount++;
                     //Very Hard line to implement -Student
                 }
             }
@@ -61,7 +63,18 @@ public class AutoComplete {
     //       given prefix (must use BubbleSort)
     //       Hint: don't overthink this.
     public ArrayList<Entry> autoComplete(String prefix) {
-        return bubbleSort(trie.generateWordsFromPrefix(prefix));
+        ArrayList<Entry> ls = bubbleSort(trie.generateWordsFromPrefix(prefix));
+
+        final int autoCompleteOptions = 6; //number of entries to show up
+        ArrayList<Entry> topList = new ArrayList<>(autoCompleteOptions);
+        for(int i = 0; i <= autoCompleteOptions; i++){
+            try{
+                topList.add(ls.get(i));
+            }catch (IndexOutOfBoundsException e){
+                return topList;
+            }
+        }
+        return topList; //Instructions are to return only the top 6
     }
 
     // TODO: Implement BubbleSort. Sort by frequency of the Entry. Return the list of entries sorted.
@@ -83,9 +96,7 @@ public class AutoComplete {
                 }
             }
         }
-
-
-        return (ArrayList<Entry>) ls.subList(0,7); //Instructions are to return only the top 6
+        return ls;
     }
 
     public static void main(String[] args) throws IOException {
