@@ -63,18 +63,18 @@ public class AutoComplete {
     //       given prefix (must use BubbleSort)
     //       Hint: don't overthink this.
     public ArrayList<Entry> autoComplete(String prefix) {
-        ArrayList<Entry> ls = bubbleSort(trie.generateWordsFromPrefix(prefix));
+        ArrayList<Entry> wordsFromPrefix = bubbleSort(trie.generateWordsFromPrefix(prefix));
 
-        final int autoCompleteOptions = 6; //number of entries to show up
-        ArrayList<Entry> topList = new ArrayList<>(autoCompleteOptions);
-        for(int i = 0; i <= autoCompleteOptions; i++){
+        final int autoCompleteSize = 6; //number of entries to show up; hard coded due to TODO
+        ArrayList<Entry> autoCompleteWords = new ArrayList<>(autoCompleteSize);
+        for(int i = 0; i <= autoCompleteSize; i++){
             try{
-                topList.add(ls.get(i));
+                autoCompleteWords.add(wordsFromPrefix.get(i));
             }catch (IndexOutOfBoundsException e){
-                return topList;
+                return autoCompleteWords;
             }
         }
-        return topList; //Instructions are to return only the top 6
+        return autoCompleteWords; //Instructions are to return only the top 6
     }
 
     // TODO: Implement BubbleSort. Sort by frequency of the Entry. Return the list of entries sorted.
@@ -88,7 +88,6 @@ public class AutoComplete {
                 Entry rightEntry = ls.get(rightIndex);
                 int leftFrequency = leftEntry.getFrequency();
                 int rightFrequency = rightEntry.getFrequency();
-
 
                 if (leftFrequency < rightFrequency) { //Controls order '<' = DESCENDING; '>' = ASCENDING
                     ls.set(leftIndex, rightEntry);
@@ -104,7 +103,7 @@ public class AutoComplete {
         System.out.print("Enter file name: ");
         String file = input.nextLine();
         AutoComplete a = new AutoComplete(file);
-        String answer = "y";
+        String answer = "y"; //Why is this a string instead of a boolean?
         while (answer.equals("y")) {
             System.out.print("Enter word to find prefix (0 to quit program): ");
             String term = input.nextLine();
